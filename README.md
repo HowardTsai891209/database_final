@@ -1,13 +1,13 @@
-//安裝虛擬環境
+安裝虛擬環境 \n
 pip install virtualenv
 virtualenv -p python3.9 django_mysql
 django_mysql\Scripts\activate
 pip install -r django_mysql_requirements.txt
 cd myproject
 
-//需先在settings.py內找到database並修改password
+需先在settings.py內找到database並修改password
 
-//資料庫遷移
+資料庫遷移
 python manage.py makemigrations
 python manage.py migrate
 
