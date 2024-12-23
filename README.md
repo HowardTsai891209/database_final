@@ -2,7 +2,8 @@
 pip install virtualenv  
 virtualenv -p python3.9 django_mysql  
 django_mysql\Scripts\activate  
-pip install -r django_mysql_requirements.txt  
+pip install django
+pip install PyMySQL
 cd myproject  
 
 需先在settings.py內找到database並修改password  
