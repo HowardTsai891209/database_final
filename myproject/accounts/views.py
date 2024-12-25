@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.contrib import auth
 from django.contrib import messages
 from django.db import connection
 from .models import Accounts, Member, Classes, Coach, Payments
@@ -97,17 +99,7 @@ def member_view(request):
 
     return redirect('login')
 
-def logout_view(request):
-    # 登出當前用戶
-    logout(request)
-    # 重定向到登入頁面
-    return redirect('login')
-
 def change_password_view(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-
-    # 當 POST 請求時處理表單
     if request.method == 'POST':
         old_password = request.POST.get('old_password')
         new_password = request.POST.get('new_password')
@@ -136,7 +128,6 @@ def change_password_view(request):
 
     return render(request, 'change_password.html')
 
-
 def coach_view(request):
     coach_id = request.session.get('coach_id')
 
@@ -147,18 +138,19 @@ def coach_view(request):
                 # 1. 查詢該教練的學生會籍到期日
                 with connection.cursor() as cursor:
                     cursor.execute("""
-                        SELECT 
-                            m.memberid,
-                            m.name AS student_name,
-                            m.membershiptype,
-                            m.expirydate,
-                            IF(m.expirydate BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 3 MONTH), '!', '') AS alert
-                        FROM 
-                            `classes` cl
-                        JOIN 
-                            `member` m ON cl.memberid = m.memberid
-                        WHERE 
-                            cl.coachid = %s;
+                SELECT 
+                    m.memberid,
+                    m.name AS student_name,
+                    m.membershiptype,
+                    m.expirydate,
+                    IF(m.expirydate BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 3 MONTH), '!', '') AS alert
+                FROM 
+                    `classes` cl
+                JOIN 
+                    `member` m ON cl.memberid = m.memberid
+                WHERE 
+                    cl.coachid = %s
+                    AND m.expirydate > CURDATE();  -- 只選擇到期日尚未過期的學生
                     """, [coach_id])
                     student_expiry_dates = cursor.fetchall()
 
@@ -196,4 +188,10 @@ def coach_view(request):
     else:
         messages.error(request, "無法找到教練信息")
 
+    return redirect('login')
+
+def logout_view(request):
+    # 登出當前用戶
+    logout(request)
+    # 重定向到登入頁面
     return redirect('login')

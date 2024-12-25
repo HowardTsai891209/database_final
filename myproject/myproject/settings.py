@@ -24,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d0)5+pj3d857sy38p-^(_y&sx3@r$8ovv5hq8apt*7prgq9&0l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 # Application definition
 
@@ -84,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # 使用 MySQL 資料庫
         'NAME': 'gymmanagement',               # 資料庫名稱
         'USER': 'root',                        # MySQL 用戶名稱，根據你的配置來填寫
-        'PASSWORD': '12345678',           # MySQL 密碼，根據你的設定填寫
+        'PASSWORD': '00000000',           # MySQL 密碼，根據你的設定填寫
         'HOST': 'localhost',                   # 一般使用 localhost，根據你的 MySQL 伺服器設置
         'PORT': '3306',                        # MySQL 的預設端口
     }
@@ -131,3 +132,7 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 3600  # 設置 session 失效時間為 1 小時
+LOGIN_URL = '/login/'
