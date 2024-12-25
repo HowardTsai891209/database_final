@@ -24,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d0)5+pj3d857sy38p-^(_y&sx3@r$8ovv5hq8apt*7prgq9&0l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 # Application definition
 
@@ -131,3 +132,13 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# # 確保 SESSION_ENGINE 被正確設置
+# SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # 默認設置，使用數據庫保存 Session
+
+# # 確保 SESSION_COOKIE_AGE 不會導致會話過期過快
+# SESSION_COOKIE_AGE = 1209600  # 默認 2 週（以秒為單位）
+
+# # 確保 SESSION_COOKIE_SECURE 是否需要根據 HTTP/HTTPS 來配置
+# SESSION_COOKIE_SECURE = False  # 如果使用 HTTPS，設為 True
+# LOGIN_URL = '/login/'

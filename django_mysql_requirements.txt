@@ -1,7 +1,7 @@
 #pip install virtualenv
 #virtualenv -p python3.9 django_mysql
 #django_mysql\Scripts\activate
-#pip install -r django_mysql_requirements.txt
+#pip install -r django_sql_requirements.txt
 
 asgiref           3.8.1
 Django            4.2.17
