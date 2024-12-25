@@ -133,6 +133,12 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-SESSION_COOKIE_AGE = 3600  # 設置 session 失效時間為 1 小時
-LOGIN_URL = '/login/'
+# # 確保 SESSION_ENGINE 被正確設置
+# SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # 默認設置，使用數據庫保存 Session
+
+# # 確保 SESSION_COOKIE_AGE 不會導致會話過期過快
+# SESSION_COOKIE_AGE = 1209600  # 默認 2 週（以秒為單位）
+
+# # 確保 SESSION_COOKIE_SECURE 是否需要根據 HTTP/HTTPS 來配置
+# SESSION_COOKIE_SECURE = False  # 如果使用 HTTPS，設為 True
+# LOGIN_URL = '/login/'
