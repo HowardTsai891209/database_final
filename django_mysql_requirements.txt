@@ -3,13 +3,13 @@
 #django_mysql\Scripts\activate
 #pip install -r django_sql_requirements.txt
 
-asgiref           3.8.1
-Django            4.2.17
-mysqlclient       2.2.6
-pip               24.3.1
-PyMySQL           1.1.1
-setuptools        75.6.0
-sqlparse          0.5.3
-typing_extensions 4.12.2
-tzdata            2024.2
-wheel             0.45.1
+asgiref==3.8.1
+Django==4.2.17
+mysqlclient==2.2.6
+pip==24.3.1
+PyMySQL==1.1.1
+setuptools==75.6.0
+sqlparse==0.5.3
+typing_extensions==4.12.2
+tzdata==2024.2
+wheel==0.45.1
